@@ -1,5 +1,7 @@
 import express from 'express';
 import { verifyToken } from '../middleware/auth.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const protectedRouter = express.Router();
 
@@ -10,8 +12,8 @@ protectedRouter.get('/protected', verifyToken, (req, res) => {
 protectedRouter.post('/logout', (req, res) => {
 	res.clearCookie('token', {
 		httpOnly: true,
-		secure: process.env.NODE_ENV === 'production',
-		sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'none',
+		secure: process.env.VITE_NODE_ENV === 'production',
+		sameSite: process.env.VITE_NODE_ENV === 'production' ? 'strict' : 'none',
 	});
 	res.status(200).json({ message: 'Logged out successfully' });
 });
