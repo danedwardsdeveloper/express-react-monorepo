@@ -5,13 +5,14 @@
 	"main": "./dist/server/server.js",
 	"type": "module",
 	"scripts": {
-		"start": "pnpm run build && NODE_ENV=build node dist/server/server.js",
-		"dev": "concurrently \"pnpm run dev:server\" \"pnpm run dev:client\"",
-		"dev:server": "NODE_ENV=development nodemon server/server.js",
-		"dev:client": "pnpm --prefix client run dev",
-		"build": "pnpm run build:server && pnpm run build:client",
-		"build:server": "copyfiles -u 1 \"server/**/*\" dist/server",
-		"build:client": "pnpm --prefix client run build"
+		"dev": "concurrently \"pnpm run dev:client\" \"pnpm run dev:server\"",
+		"dev:server": "NODE_ENV=development nodemon src/server/server.js",
+		"dev:client": "pnpm --prefix src/client run dev",
+		"build-production": "NODE_ENV=production pnpm run build:server && pnpm run build:client && node dist/server/server.js",
+		"build-local": "NODE_ENV=build pnpm run build:server && pnpm run build:client && node dist/server/server.js",
+		"build:server": "copyfiles -u 1 \"src/server/**/*\" dist/server",
+		"build:client": "pnpm --prefix src/client run build",
+		"start": "pnpm build-production && node dist/server/server.js"
 	},
 	"keywords": [],
 	"author": "",
@@ -19,12 +20,13 @@
 	"dependencies": {
 		"chalk": "^4.1.2",
 		"concurrently": "^8.2.2",
-		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
 		"http": "0.0.1-security",
 		"nodemon": "^3.1.4"
 	},
 	"devDependencies": {
-		"copyfiles": "^2.4.1"
+		"copyfiles": "^2.4.1",
+		"dotenv": "^16.4.5",
+		"open": "^10.1.0"
 	}
 }

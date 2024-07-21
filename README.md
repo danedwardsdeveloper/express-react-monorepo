@@ -4,7 +4,10 @@ An API and React app served by Express
 
 ## Goals
 
--  Configure start script (Serve both parts from same terminal)
+-  Style basic front-end
+-  express-react-monorepo
+
+-  Get Deploy script to work
 
 ### Instructions
 
