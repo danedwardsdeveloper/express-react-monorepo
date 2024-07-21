@@ -4,7 +4,7 @@ dotenv.config();
 
 // import { authMiddleware } from './middleware/auth.js';
 import publicRouter from './routes/public.js';
-// import protectedRoutes from './routes/protected.js';
+import protectedRouter from './routes/protected.js';
 
 // import { setupCors } from './middleware/cors.js';
 // import { setupBodyParser } from './middleware/bodyParser.js';
@@ -14,6 +14,7 @@ import publicRouter from './routes/public.js';
 // import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
+app.use(express.json());
 
 // setupCors(app);
 // setupBodyParser(app);
@@ -29,7 +30,7 @@ const app = express();
 
 app.use('/api', publicRouter);
 
-// app.use('/api', publicRoutes);
+app.use('/api', protectedRouter);
 
 // app.use('/api', authMiddleware, protectedRoutes);
 
