@@ -2,11 +2,10 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-// import { authMiddleware } from './middleware/auth.js';
+import setupMiddleware from './middleware/middleware.js';
 import publicRouter from './routes/public.js';
 import protectedRouter from './routes/protected.js';
 
-// import { setupCors } from './middleware/cors.js';
 // import { setupBodyParser } from './middleware/bodyParser.js';
 // import { setupSecurityHeaders } from './middleware/securityHeaders.js';
 // import { setupRateLimiter } from './middleware/rateLimiter.js';
@@ -14,17 +13,12 @@ import protectedRouter from './routes/protected.js';
 // import { errorHandler } from './middleware/errorHandler.js';
 
 const app = express();
-app.use(express.json());
+setupMiddleware(app);
 
-// setupCors(app);
 // setupBodyParser(app);
 // setupSecurityHeaders(app);
 // setupRateLimiter(app);
 // app.use(requestLogger);
-
-// app.get('/', (req, res) => {
-// 	res.json({ message: 'Bookshop API' });
-// });
 
 // app.use(errorHandler);
 
