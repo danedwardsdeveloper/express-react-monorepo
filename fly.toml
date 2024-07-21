@@ -14,7 +14,7 @@ kill_timeout = '5s'
 [build]
 
 [env]
-  NODE_ENV = 'production'
+  VITE_NODE_ENV = 'production'
   PORT = '3000'
 
 [http_service]
