@@ -17,9 +17,9 @@ const app = express();
 // setupRateLimiter(app);
 // app.use(requestLogger);
 
-app.get('/', (req, res) => {
-	res.json({ message: 'Bookshop API' });
-});
+// app.get('/', (req, res) => {
+// 	res.json({ message: 'Bookshop API' });
+// });
 
 // app.use(errorHandler);
 
