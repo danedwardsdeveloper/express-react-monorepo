@@ -1,0 +1,25 @@
+{
+	"name": "express-react-monorepo",
+	"version": "1.0.0",
+	"description": "An API and React app served by Express",
+	"main": "./dist/server/server.js",
+	"type": "module",
+	"scripts": {
+		"start": "node dist/server/server.js",
+		"build": "pnpm run build:server && pnpm run build:client",
+		"build:server": "copyfiles -u 1 \"server/**/*\" dist/server",
+		"build:client": "pnpm --prefix client run build"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"chalk": "^4.1.2",
+		"dotenv": "^16.4.5",
+		"express": "^4.19.2",
+		"http": "0.0.1-security"
+	},
+	"devDependencies": {
+		"copyfiles": "^2.4.1"
+	}
+}
