@@ -12,7 +12,8 @@
 		"build-local": "NODE_ENV=build pnpm run build:server && pnpm run build:client && node dist/server/server.js",
 		"build:server": "copyfiles -u 1 \"src/server/**/*\" dist/server",
 		"build:client": "pnpm --prefix src/client run build",
-		"start": "pnpm build-production && node dist/server/server.js"
+		"start": "pnpm build-production && node dist/server/server.js",
+		"test": "nodemon --exec 'node src/server/app/app.js & find tests -name \"*.test.js\" | xargs node --experimental-vm-modules node_modules/mocha/bin/mocha --reporter min -r dotenv/config' || true"
 	},
 	"keywords": [],
 	"author": "",
@@ -20,13 +21,19 @@
 	"dependencies": {
 		"chalk": "^4.1.2",
 		"concurrently": "^8.2.2",
+		"cookie-parser": "^1.4.6",
 		"express": "^4.19.2",
 		"http": "0.0.1-security",
+		"jsonwebtoken": "^9.0.2",
 		"nodemon": "^3.1.4"
 	},
 	"devDependencies": {
+		"chai": "^5.1.1",
+		"chai-http": "^5.0.0",
 		"copyfiles": "^2.4.1",
 		"dotenv": "^16.4.5",
-		"open": "^10.1.0"
+		"mocha": "^10.7.0",
+		"open": "^10.1.0",
+		"supertest": "^7.0.0"
 	}
 }
