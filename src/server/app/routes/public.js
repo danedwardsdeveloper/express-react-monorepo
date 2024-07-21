@@ -30,8 +30,8 @@ publicRouter.post('/login', (req, res) => {
 
 	res.cookie('token', token, {
 		httpOnly: true,
-		secure: process.env.NODE_ENV === 'production',
-		sameSite: process.env.NODE_ENV === 'production' ? 'strict' : 'none',
+		secure: process.env.VITE_NODE_ENV === 'production',
+		sameSite: process.env.VITE_NODE_ENV === 'production' ? 'strict' : 'none',
 		maxAge: 60 * 60 * 1000,
 		path: '/',
 	});
