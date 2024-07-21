@@ -7,7 +7,7 @@ dotenv.config();
 
 import app from './app/app.js';
 
-const nodeEnv = process.env.NODE_ENV || `development`;
+const nodeEnv = process.env.VITE_NODE_ENV || `development`;
 console.log(chalk.blue(`Environment: ${nodeEnv}`));
 
 const port = parseInt(process.env.EXPRESS_PORT || '3000', 10);
