@@ -5,7 +5,10 @@
 	"main": "./dist/server/server.js",
 	"type": "module",
 	"scripts": {
-		"start": "node dist/server/server.js",
+		"start": "pnpm run build && NODE_ENV=build node dist/server/server.js",
+		"dev": "concurrently \"pnpm run dev:server\" \"pnpm run dev:client\"",
+		"dev:server": "NODE_ENV=development nodemon server/server.js",
+		"dev:client": "pnpm --prefix client run dev",
 		"build": "pnpm run build:server && pnpm run build:client",
 		"build:server": "copyfiles -u 1 \"server/**/*\" dist/server",
 		"build:client": "pnpm --prefix client run build"
@@ -15,9 +18,11 @@
 	"license": "ISC",
 	"dependencies": {
 		"chalk": "^4.1.2",
+		"concurrently": "^8.2.2",
 		"dotenv": "^16.4.5",
 		"express": "^4.19.2",
-		"http": "0.0.1-security"
+		"http": "0.0.1-security",
+		"nodemon": "^3.1.4"
 	},
 	"devDependencies": {
 		"copyfiles": "^2.4.1"
