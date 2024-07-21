@@ -2,10 +2,30 @@ import { use, expect } from 'chai';
 import chaiHttp from 'chai-http';
 const chai = use(chaiHttp);
 import request from 'supertest';
+import jwt from 'jsonwebtoken';
+import dotenv from 'dotenv';
+dotenv.config();
 
 import app from '../src/server/app/app.js';
 
 describe('API Tests', () => {
+	const jwtSecret = process.env.JWT_SECRET;
+	let validToken;
+
+	before(() => {
+		validToken = jwt.sign(
+			{
+				email: 'wronguser@gmail.com',
+				password: 'securePassword',
+				userId: 1,
+			},
+			jwtSecret,
+			{
+				expiresIn: '1h',
+			}
+		);
+	});
+
 	describe('GET /api', () => {
 		it('should return JSON with "Express React Monorepo API"', (done) => {
 			request(app)
@@ -68,6 +88,110 @@ describe('API Tests', () => {
 						'Invalid credentials'
 					);
 					expect(res).to.not.have.cookie('token');
+					done();
+				});
+		});
+	});
+
+	describe('Protected Routes', () => {
+		beforeEach((done) => {
+			request(app)
+				.get('/clear-cookies')
+				.end((err, res) => {
+					done();
+				});
+		});
+
+		it('should deny access without token', (done) => {
+			request(app)
+				.get('/api/protected')
+				.end((err, res) => {
+					expect(res).to.have.status(401);
+					expect(res).to.be.json;
+					expect(res.body).to.have.property(
+						'message',
+						'No token provided'
+					);
+					done();
+				});
+		});
+
+		it('should deny access with invalid token', (done) => {
+			request(app)
+				.get('/api/protected')
+				.set('Cookie', 'token=invalidToken')
+				.end((err, res) => {
+					expect(res).to.have.status(401);
+					expect(res).to.be.json;
+					expect(res.body).to.have.property('message', 'Invalid token');
+					done();
+				});
+		});
+
+		it('should access protected route with valid token', (done) => {
+			request(app)
+				.get('/api/protected')
+				.set('Cookie', `token=${validToken}`)
+				.end((err, res) => {
+					console.log('Response body:', res.body);
+					expect(err).to.be.null;
+					expect(res).to.have.status(200);
+					expect(res).to.be.json;
+					expect(res.body).to.have.property(
+						'message',
+						'This is a protected route'
+					);
+					expect(res.body).to.have.property('userId', 1);
+					done();
+				});
+		});
+	});
+
+	describe('POST /api/logout', () => {
+		it('should logout successfully and clear the token cookie', (done) => {
+			request(app)
+				.post('/api/logout')
+				.set('Cookie', `token=${validToken}`)
+				.end((err, res) => {
+					expect(err).to.be.null;
+					expect(res).to.have.status(200);
+					expect(res).to.be.json;
+					expect(res.body).to.have.property(
+						'message',
+						'Logged out successfully'
+					);
+
+					// Check if the cookie is cleared
+					const cookies = res.headers['set-cookie'];
+					expect(cookies).to.be.an('array');
+					const tokenCookie = cookies.find((cookie) =>
+						cookie.startsWith('token=')
+					);
+					expect(tokenCookie).to.include('token=;');
+					expect(tokenCookie).to.include('HttpOnly');
+
+					if (process.env.VITE_NODE_ENV === 'production') {
+						expect(tokenCookie).to.include('Secure');
+						expect(tokenCookie).to.include('SameSite=Strict');
+					} else {
+						expect(tokenCookie).to.include('SameSite=None');
+					}
+
+					done();
+				});
+		});
+
+		it('should return 200 even if not logged in', (done) => {
+			request(app)
+				.post('/api/logout')
+				.end((err, res) => {
+					expect(err).to.be.null;
+					expect(res).to.have.status(200);
+					expect(res).to.be.json;
+					expect(res.body).to.have.property(
+						'message',
+						'Logged out successfully'
+					);
 					done();
 				});
 		});
