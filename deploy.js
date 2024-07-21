@@ -14,31 +14,23 @@ const runCommand = (command) => {
 };
 
 const deploy = async () => {
-	console.log(chalk.blue('Starting deployment process...'));
+	console.log(chalk.bgMagenta('Starting deployment process...'));
 
-	console.log(chalk.blue('Building the project...'));
-	runCommand('pnpm build-production');
+	console.log(chalk.bgMagenta('Building the project...'));
+	runCommand('pnpm run build-production');
 
-	console.log(chalk.blue('Building Docker image...'));
+	console.log(chalk.bgMagenta('Building Docker image...'));
 	runCommand('docker build -t express-react-monorepo .');
 
-	const containerName = 'express-react-app';
-
-	if (containerExists(containerName)) {
-		console.log('Stopping and removing existing container...');
-		runCommand(`docker stop ${containerName}`);
-		runCommand(`docker rm ${containerName}`);
-	}
-
-	console.log('Running Docker container...');
+	console.log(chalk.bgMagenta('Running Docker container...'));
 	runCommand(
-		`docker run -d --name ${containerName} -p 3000:3000 --env-file .env express-react-monorepo`
+		`docker run -d --name express-react-app -p 3000:3000 --env-file .env express-react-monorepo`
 	);
 
-	console.log(chalk.blue('Deploying to Fly.io...'));
+	console.log(chalk.bgMagenta('Deploying to Fly.io...'));
 	runCommand('fly deploy');
 
-	console.log(chalk.blue('Deployment successful!'));
+	console.log(chalk.bgMagenta('Deployment successful!'));
 
 	const flyAppUrl = process.env.FLY_APP_URL;
 	if (flyAppUrl) {
