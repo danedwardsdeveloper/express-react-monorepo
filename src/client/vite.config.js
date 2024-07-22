@@ -9,4 +9,11 @@ export default defineConfig({
 		outDir: path.resolve(__dirname, '../../dist/client'),
 		emptyOutDir: true,
 	},
+	css: {
+		preprocessorOptions: {
+			less: {
+				javascriptEnabled: true,
+			},
+		},
+	},
 });
