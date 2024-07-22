@@ -10,7 +10,7 @@
 		"dev:client": "pnpm --prefix src/client run dev",
 		"build-production": "VITE_NODE_ENV=production pnpm run build:server && pnpm run build:client",
 		"build-local": "VITE_NODE_ENV=build pnpm run build:server && pnpm run build:client && node dist/server/server.js",
-		"build:server": "copyfiles -u 1 \"src/server/**/*\" dist/server",
+		"build:server": "copyfiles -u 1 \"src/server/**/*\" dist",
 		"build:client": "pnpm --prefix src/client run build",
 		"start": "pnpm build-production && node dist/server/server.js",
 		"test": "nodemon --exec 'node src/server/app/app.js & find tests -name \"*.test.js\" | xargs node --experimental-vm-modules node_modules/mocha/bin/mocha --reporter min -r dotenv/config' || true",
