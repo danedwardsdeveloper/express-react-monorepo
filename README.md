@@ -4,10 +4,7 @@ An API and React app served by Express
 
 ## Goals
 
--  Style basic front-end
--  express-react-monorepo
-
--  Get Deploy script to work
+-  Get NODE_ENV logs to be accurate
 
 ### Instructions
 
