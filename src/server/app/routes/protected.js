@@ -12,7 +12,7 @@ protectedRouter.get('/protected', verifyToken, (req, res) => {
 protectedRouter.post('/logout', (req, res) => {
 	res.clearCookie('token', {
 		httpOnly: true,
-		secure: process.env.VITE_NODE_ENV === 'production',
+		secure: true,
 		sameSite: process.env.VITE_NODE_ENV === 'production' ? 'strict' : 'none',
 	});
 	res.status(200).json({ message: 'Logged out successfully' });
