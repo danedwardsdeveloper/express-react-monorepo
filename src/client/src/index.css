@@ -2,47 +2,64 @@
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-size: 10px;
 }
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
+  padding: 0;
   min-height: 100vh;
+  text-align: center;
+  background-color: #d4e9e9;
 }
-
+a {
+  text-decoration: none;
+  color: inherit;
+}
+nav {
+  background-color: seagreen;
+  margin: 0;
+  padding: 10px;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: flex-start;
+}
+nav ul li {
+  display: inline-block;
+  font-size: 1.6rem;
+  padding: 4px 10px;
+  margin-left: 10px;
+  background-color: lightgrey;
+  border-radius: 4px;
+  outline: 1px solid transparent;
+  color: black;
+}
+nav ul li:hover {
+  background-color: #e0e0e0;
+  outline: 1px solid #a0a0a0;
+  color: #333333;
+}
 h1 {
-  font-size: 3.2em;
+  font-size: 4rem;
   line-height: 1.1;
 }
-
+form input {
+  font-size: 1.8rem;
+}
+form * {
+  display: inline-block;
+  margin-right: 10px;
+}
 button {
-  border-radius: 8px;
+  border-radius: 4px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+  padding: 4px 16px;
+  font-size: 1.8rem;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: lightgrey;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -52,17 +69,4 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
 }
