@@ -15,7 +15,7 @@ function LoginForm() {
     e.preventDefault();
     try {
       const response = await axios.post(`${API_BASE_URL}/login`, { email, password }, { withCredentials: true });
-      console.log('Login successful:', response.data);
+      // console.log('Login successful:', response.data);
       navigate('/protected');
     } catch (error) {
       console.error('Login failed:', error.response ? error.response.data : error.message);
