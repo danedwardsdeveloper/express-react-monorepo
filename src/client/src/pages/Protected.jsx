@@ -45,7 +45,7 @@ function Protected() {
 
   return (
     <div>
-      <h2>Hello {userId}!</h2>
+      <h2>Hello User {userId}!</h2>
       <button onClick={handleLogout}>Logout</button>
     </div>
   );
