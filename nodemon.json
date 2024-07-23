@@ -1,4 +1,0 @@
-{
-	"watch": ["src/server", ".env", "package.json"],
-	"ext": "js,mjs,json"
-}
