@@ -10,7 +10,7 @@ const publicRouter = express.Router();
 const users = [{ id: 1, email: 'user@gmail.com', password: 'securePassword' }];
 
 publicRouter.get('/', (req, res) => {
-	res.json({ message: 'Express React Monorepo API' });
+	res.json({ message: 'Plant Counter API' });
 });
 
 publicRouter.post('/login', (req, res) => {
