@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-import { jwtSecret, expressEnv } from '../../utils/processEnvVars';
+import { jwtSecret, expressEnv } from '../../utils/processEnvVars.js';
 
 const publicRouter = express.Router();
 
