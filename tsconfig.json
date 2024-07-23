@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "ES2022",
+		"module": "ES2022",
+		"rootDir": "./server",
+		"outDir": "./dist/server",
+		"esModuleInterop": true,
+		"strict": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true
+	},
+	"include": ["server/**/*"],
+	"exclude": ["node_modules", "tests", "ops", "client", "dist"]
+}

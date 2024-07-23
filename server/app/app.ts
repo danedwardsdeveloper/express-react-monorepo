@@ -2,9 +2,9 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import setupMiddleware from './middleware/middleware.js';
-import publicRouter from './routes/public.js';
-import protectedRouter from './routes/protected.js';
+import setupMiddleware from './middleware/middleware';
+import publicRouter from './routes/public';
+import protectedRouter from './routes/protected';
 
 // import { setupBodyParser } from './middleware/bodyParser.js';
 // import { setupSecurityHeaders } from './middleware/securityHeaders.js';

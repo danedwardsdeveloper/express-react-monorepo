@@ -1,10 +1,9 @@
 import jwt from 'jsonwebtoken';
-import * as dotenv from 'dotenv';
-dotenv.config();
 
-const jwtSecret = process.env.JWT_SECRET;
+import { jwtSecret } from '../../utils/processEnvVars'
+import { NextFunction } from 'express';
 
-export const verifyToken = (req, res, next) => {
+export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
 	const token = req.cookies.token;
 
 	if (!token) {

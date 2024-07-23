@@ -5,22 +5,15 @@ import { fileURLToPath } from 'url';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import app from './app/app.js';
-
-const nodeEnv = process.env.VITE_NODE_ENV || `production`;
-console.log(
-	'Node environment:',
-	process.env.VITE_NODE_ENV || chalk.yellow('VITE_NODE_ENV not set!')
-);
-
-const port = parseInt(process.env.EXPRESS_PORT || '3000', 10);
+import { expressEnv, port } from './utils/processEnvVars';
+import app from './app/app';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const server = app.listen(port, () => {
-	const isProdOrBuild = ['production', 'build'].includes(nodeEnv);
+	const isProdOrBuild = ['production', 'build'].includes(expressEnv);
 	const baseUrl =
-		nodeEnv === 'production'
+		expressEnv === 'production'
 			? process.env.VITE_DEPLOYED_SITE_URL
 			: `http://localhost:${port}`;
 

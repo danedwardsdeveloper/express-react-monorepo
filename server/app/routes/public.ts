@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const jwtSecret = process.env.JWT_SECRET;
+import { jwtSecret, expressEnv } from '../../utils/processEnvVars';
 
 const publicRouter = express.Router();
 
@@ -12,6 +12,7 @@ const users = [{ id: 1, email: 'user@gmail.com', password: 'securePassword' }];
 publicRouter.get('/', (req, res) => {
 	res.json({ message: 'Plant Counter API' });
 });
+
 
 publicRouter.post('/login', (req, res) => {
 	const { email, password } = req.body;
@@ -28,10 +29,12 @@ publicRouter.post('/login', (req, res) => {
 		expiresIn: '1h',
 	});
 
+	const inProduction: boolean = expressEnv === 'production';
+
 	res.cookie('token', token, {
 		httpOnly: true,
 		secure: true,
-		sameSite: process.env.VITE_NODE_ENV === 'production' ? 'strict' : 'none',
+		sameSite: inProduction ? 'strict' : 'none',
 		maxAge: 60 * 60 * 1000,
 		path: '/',
 	});
