@@ -11,7 +11,7 @@ const API_BASE_URL = import.meta.env.VITE_NODE_ENV === 'production'
   ? `${import.meta.env.VITE_DEPLOYED_SITE_URL}/api`
   : 'http://127.0.0.1:3000/api';
 
-// console.log(`Base URL: ${API_BASE_URL}`);
+console.log(`Environment: ${import.meta.env.VITE_NODE_ENV}`)
 
 function App() {
   const [message, setMessage] = useState('');
@@ -33,7 +33,7 @@ function App() {
     <Router>
       <div>
         <Navigation />
-        <h1>Express React Monorepo</h1>
+        <h1>Plant Counter</h1>
 
         <Routes>
           <Route path="/" element={<Home />} />
