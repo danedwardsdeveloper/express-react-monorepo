@@ -21,7 +21,7 @@ const server = app.listen(port, () => {
 	const isProdOrBuild = ['production', 'build'].includes(nodeEnv);
 	const baseUrl =
 		nodeEnv === 'production'
-			? process.env.DEPLOYED_SITE_URL
+			? process.env.VITE_DEPLOYED_SITE_URL
 			: `http://localhost:${port}`;
 
 	if (isProdOrBuild) {
