@@ -5,9 +5,7 @@
 	"main": "./dist/server/server.js",
 	"type": "module",
 	"scripts": {
-		"dev": "concurrently \"pnpm run dev:client\" \"pnpm run dev:server\"",
-		"dev:server": "VITE_NODE_ENV=development nodemon src/server/server.js",
-		"dev:client": "pnpm --prefix src/client run dev",
+		"dev": "concurrently \"nodemon server/server.js\" \"pnpm --prefix client run dev\"",
 		"build-production": "pnpm run build:server && pnpm run build:client",
 		"build-local": "VITE_NODE_ENV=build pnpm run build:server && pnpm run build:client && node dist/server/server.js",
 		"build:server": "copyfiles -u 1 \"src/server/**/*\" dist",
