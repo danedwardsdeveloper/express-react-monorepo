@@ -2,9 +2,8 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
-import setupMiddleware from './middleware/middleware';
-import publicRouter from './routes/public';
-import protectedRouter from './routes/protected';
+const app = express();
+
 
 // import { setupBodyParser } from './middleware/bodyParser.js';
 // import { setupSecurityHeaders } from './middleware/securityHeaders.js';
@@ -12,7 +11,7 @@ import protectedRouter from './routes/protected';
 // import { requestLogger } from './middleware/requestLogger.js';
 // import { errorHandler } from './middleware/errorHandler.js';
 
-const app = express();
+import setupMiddleware from './middleware/middleware.js';
 setupMiddleware(app);
 
 // setupBodyParser(app);
@@ -22,10 +21,10 @@ setupMiddleware(app);
 
 // app.use(errorHandler);
 
+import publicRouter from './routes/public.js';
 app.use('/api', publicRouter);
 
+import protectedRouter from './routes/protected.js';
 app.use('/api', protectedRouter);
-
-// app.use('/api', authMiddleware, protectedRoutes);
 
 export default app;
