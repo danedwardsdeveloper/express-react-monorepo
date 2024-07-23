@@ -1,21 +1,31 @@
-import jwt from 'jsonwebtoken';
+import jwt, { VerifyErrors } from 'jsonwebtoken';
+import { Request, Response, NextFunction } from 'express';
 
-import { jwtSecret } from '../../utils/processEnvVars'
-import { NextFunction } from 'express';
+import { jwtSecret } from '../../utils/processEnvVars.js'
 
-export const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
-	const token = req.cookies.token;
+interface CustomRequest extends Request {
+	userId?: string;
+}
+
+interface JwtPayload {
+	userId: string;
+}
+
+export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
+	const token = req.cookies?.token;
 
 	if (!token) {
-		return res.status(401).json({ message: 'No token provided' });
+		res.status(401).json({ message: 'No token provided' });
+		return;
 	}
 
-	jwt.verify(token, jwtSecret, (err, decoded) => {
+	jwt.verify(token, jwtSecret, (err: VerifyErrors | null, decoded: any) => {
 		if (err) {
-			return res.status(401).json({ message: 'Invalid token' });
+			res.status(401).json({ message: 'Invalid token' });
+			return;
 		}
 
-		req.userId = decoded.userId;
+		(req as CustomRequest).userId = (decoded as JwtPayload).userId;
 		next();
 	});
 };
