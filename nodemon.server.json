@@ -1,6 +1,12 @@
 {
 	"exec": "tsx server/server.ts",
-	"watch": ["server/", ".env", "package.json", "nodemon.server.json"],
+	"watch": [
+		"server/",
+		".env",
+		"./client/.env",
+		"package.json",
+		"nodemon.server.json"
+	],
 	"ext": "ts,json,env",
 	"ignore": [".git", "node_modules/**/node_modules"],
 	"quiet": true,
