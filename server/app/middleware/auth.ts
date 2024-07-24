@@ -1,7 +1,7 @@
 import jwt, { VerifyErrors } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
-import { jwtSecret } from '../../utils/processEnvVars.js'
+import { jwtSecret } from '../../utils/environmentChecks.js'
 
 interface CustomRequest extends Request {
 	userId?: string;
