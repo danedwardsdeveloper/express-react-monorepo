@@ -11,7 +11,8 @@ function processVariable(variable: string): string {
     return value;
 }
 
-function processAllowedOrigins(origins: string, environment: string): string[] {
+// Server
+function processAllowedOrigins(origins: string, environment: string): string | string[] {
     const value = process.env[origins];
 
     if (value == null) {
@@ -26,7 +27,7 @@ function processAllowedOrigins(origins: string, environment: string): string[] {
     ));
 
     !inProduction && console.log(chalk.blue(`- *`));
-    return inProduction ? originArray : ["*"];
+    return inProduction ? originArray : "*";
 }
 
 
