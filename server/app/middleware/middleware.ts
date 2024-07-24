@@ -2,7 +2,7 @@ import express, { Express } from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
-import { allowedOrigins } from '../../utils/processEnvVars.js';
+import { allowedOrigins } from '../../utils/environmentChecks.js';
 
 
 
