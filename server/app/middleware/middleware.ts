@@ -4,8 +4,6 @@ import cors from 'cors';
 
 import { allowedOrigins } from '../../utils/environmentChecks.js';
 
-
-
 const setupMiddleware = (app: Express) => {
 	app.use(express.json());
 	app.use(cookieParser());
