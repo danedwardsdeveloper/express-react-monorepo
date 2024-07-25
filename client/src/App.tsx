@@ -1,26 +1,15 @@
-import { useState } from 'react'
-import { reactEnv } from './utils/environmentChecks'
-import './App.css'
-
-import ApiMessage from './components/ApiMessage'
+import { Outlet } from 'react-router-dom'
+import MenuBar from './components/MenuBar'
+import Footer from './components/Footer'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <h1>Express-React Monorepo</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          React environment: {reactEnv}
-        </p>
-      </div>
-    <ApiMessage />
-    </>
-  )
+    <div>
+      <MenuBar />
+      <Outlet />
+      <Footer />
+    </div>
+  );
 }
 
-export default App
+export default App;
