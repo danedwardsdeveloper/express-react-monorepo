@@ -26,8 +26,8 @@ function processAllowedOrigins(origins: string, environment: string): string | s
         chalk.blue(`- ${inProduction ? origin : chalk.strikethrough(origin)}`)
     ));
 
-    !inProduction && console.log(chalk.blue(`- *`));
-    return inProduction ? originArray : "*";
+    !inProduction && console.log(chalk.blue(`- ${developmentUrl}`));
+    return inProduction ? originArray : developmentUrl;
 }
 
 
@@ -36,6 +36,7 @@ export const expressEnv = processVariable('EXPRESS_ENV');
 export const jwtSecret = processVariable('EXPRESS_JWT_SECRET');
 export const deployedFlyUrl = processVariable('EXPRESS_DEPLOYED_FLY_URL');
 export const deployedCustomUrl = processVariable('EXPRESS_DEPLOYED_CUSTOM_URL');
+export const developmentUrl = processVariable('EXPRESS_DEVELOPMENT_URL');
 
 // Numbers
 export const port: number = parseInt(processVariable("EXPRESS_PORT"), 10);
