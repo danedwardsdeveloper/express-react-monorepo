@@ -80,3 +80,8 @@ express-react-monorepo/
 
 -  How Fly handles environment variables
 -  How docker images & containers work
+
+## To-Do List
+
+-  [ ] Disclosure panel animations https://headlessui.com/react/disclosure
+-  [ ] Make mobile menu close when you click outside
