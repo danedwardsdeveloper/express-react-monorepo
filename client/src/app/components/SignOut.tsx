@@ -1,14 +1,22 @@
 import { useNavigate } from 'react-router-dom';
 
-import { signOut } from '../../services/AuthService';
+import { useAuth } from '../contexts/AuthContext';
+import { signOut } from '../services/AuthService';
 
 export default function SignOut() {
 	const navigate = useNavigate();
+	const { setIsAuthenticated } = useAuth();
 
-	const handleSignOut = () => {
-		signOut();
-		navigate('/sign-in');
+	const handleSignOut = async () => {
+		try {
+			await signOut();
+			setIsAuthenticated(false);
+			navigate('/sign-in');
+		} catch (error) {
+			console.error('Error signing out:', error);
+		}
 	};
+
 	return (
 		<>
 			<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
