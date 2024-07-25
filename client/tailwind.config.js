@@ -1,8 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+	plugins: [require('@tailwindcss/forms')],
 	content: ['./src/**/*.{js,jsx,ts,tsx}'],
 	theme: {
-		extend: {},
+		extend: {
+			transitionProperty: {
+				height: 'height',
+				spacing: 'margin, padding',
+			},
+		},
 	},
-	plugins: [require('@tailwindcss/forms')],
+	variants: {
+		extend: {
+			translate: ['data-closed'],
+			opacity: ['data-closed'],
+		},
+	},
 };
