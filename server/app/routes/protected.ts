@@ -13,7 +13,7 @@ protectedRouter.get('/protected', verifyToken, (req: CustomRequest, res: Respons
 	res.json({ message: 'This is a protected route', userId: req.userId });
 });
 
-protectedRouter.post('/logout', (req: Request, res: Response) => {
+protectedRouter.post('/sign-out', (req: Request, res: Response) => {
 	res.clearCookie('token', {
 		httpOnly: true,
 		secure: true,
