@@ -1,5 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import {
 	CloseButton,
 	Disclosure,
@@ -7,9 +6,6 @@ import {
 	DisclosurePanel,
 } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-
-import { setAuthenticated } from '../../features/authSlice';
-import { authService } from '../../services/AuthService';
 
 const signedOutNavigation = [
 	{ name: 'Home', to: '/' },
@@ -28,13 +24,13 @@ function classNames(...classes: string[]): string {
 }
 
 interface MenuBarProps {
-	signedIn: boolean;
+	isAuthenticated: boolean;
 }
 
-export default function MenuBar({ signedIn }: MenuBarProps) {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const navigation = signedIn ? signedInNavigation : signedOutNavigation;
+const MenuBar: React.FC<MenuBarProps> = ({ isAuthenticated }) => {
+	const navigation = isAuthenticated
+		? signedInNavigation
+		: signedOutNavigation;
 
 	return (
 		<Disclosure as="nav" className="bg-gray-800">
@@ -68,20 +64,28 @@ export default function MenuBar({ signedIn }: MenuBarProps) {
 						<div className="hidden sm:ml-6 sm:block">
 							<div className="flex space-x-4">
 								{navigation.map((item) => (
-									<NavLink
+									<CloseButton
 										key={item.name}
+										as={NavLink}
 										to={item.to}
-										className={({ isActive }) =>
+										className={({
+											isActive,
+										}: {
+											isActive: boolean;
+										}) =>
 											classNames(
 												isActive
 													? 'bg-gray-900 text-white'
 													: 'text-gray-300 hover:bg-gray-700 hover:text-white',
-												'rounded-md px-3 py-2 text-sm font-medium'
+												'block rounded-md px-3 py-2 text-base font-medium',
+												item.disabled
+													? 'pointer-events-none opacity-50'
+													: ''
 											)
 										}
 									>
 										{item.name}
-									</NavLink>
+									</CloseButton>
 								))}
 							</div>
 						</div>
@@ -117,4 +121,6 @@ export default function MenuBar({ signedIn }: MenuBarProps) {
 			</div>
 		</Disclosure>
 	);
-}
+};
+
+export default MenuBar;
