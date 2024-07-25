@@ -14,17 +14,17 @@ const checkEnvVariables = () => {
 	const forbiddenValues = ['development', 'build'];
 
 	for (const line of lines) {
-		const [key, value] = line.split('=');
-		if (forbiddenValues.includes(value.trim())) {
+		const [key, value] = line.split('=').map((part) => part.trim());
+		if (key && value && forbiddenValues.includes(value)) {
 			throw new Error(
 				chalk.red(
-					`Invalid value '${value.trim()}' for variable '${key.trim()}' in .env file.`
+					`Invalid value '${value}' for variable '${key}' in .env file.`
 				)
 			);
 		}
 	}
 
-	console.log('All .env variables are valid.');
+	console.log(chalk.green('All .env variables are valid.'));
 	return true;
 };
 
