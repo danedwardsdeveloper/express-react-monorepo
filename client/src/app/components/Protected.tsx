@@ -4,8 +4,10 @@ import {
 	ServerIcon,
 } from '@heroicons/react/20/solid';
 
+import { useAuth } from '../contexts/AuthContext';
+
 export default function Protected() {
-	const isAuthenticated = false;
+	const { isAuthenticated } = useAuth();
 
 	return (
 		<div className="relative bg-white">
