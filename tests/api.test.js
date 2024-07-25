@@ -43,10 +43,10 @@ describe('API Tests', () => {
 		});
 	});
 
-	describe('POST /api/login', () => {
+	describe('POST /api/sign-in', () => {
 		it('should login successfully with correct credentials', (done) => {
 			request(app)
-				.post('/api/login')
+				.post('/api/sign-in')
 				.send({ email: 'user@gmail.com', password: 'securePassword' })
 				.expect('Content-Type', /json/)
 				.expect(200)
@@ -60,7 +60,7 @@ describe('API Tests', () => {
 
 		it('should fail login with incorrect email', (done) => {
 			request(app)
-				.post('/api/login')
+				.post('/api/sign-in')
 				.send({ email: 'wronguser@gmail.com', password: 'securePassword' })
 				.expect('Content-Type', /json/)
 				.expect(401)
@@ -77,7 +77,7 @@ describe('API Tests', () => {
 
 		it('should fail login with incorrect password', (done) => {
 			request(app)
-				.post('/api/login')
+				.post('/api/sign-in')
 				.send({ email: 'user@gmail.com', password: 'wrongPassword' })
 				.expect('Content-Type', /json/)
 				.expect(401)
@@ -147,10 +147,10 @@ describe('API Tests', () => {
 		});
 	});
 
-	describe('POST /api/logout', () => {
+	describe('POST /api/sign-out', () => {
 		it('should logout successfully and clear the token cookie', (done) => {
 			request(app)
-				.post('/api/logout')
+				.post('/api/sign-out')
 				.set('Cookie', `token=${validToken}`)
 				.end((err, res) => {
 					expect(err).to.be.null;
@@ -183,7 +183,7 @@ describe('API Tests', () => {
 
 		it('should return 200 even if not logged in', (done) => {
 			request(app)
-				.post('/api/logout')
+				.post('/api/sign-out')
 				.end((err, res) => {
 					expect(err).to.be.null;
 					expect(res).to.have.status(200);
