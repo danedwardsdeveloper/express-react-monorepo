@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { signIn } from '../../services/AuthService';
+import { useAuth } from '../contexts/AuthContext';
+import { signIn } from '../services/AuthService';
 
 export default function SignIn() {
 	const [email, setEmail] = useState('user@gmail.com');
@@ -9,6 +10,7 @@ export default function SignIn() {
 	const [errorMessage, setErrorMessage] = useState('');
 
 	const navigate = useNavigate();
+	const { setIsAuthenticated } = useAuth();
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -19,6 +21,7 @@ export default function SignIn() {
 				console.log('Sign in successful');
 				console.log('User ID:', result.userId);
 				console.log('Message:', result.message);
+				setIsAuthenticated(true);
 				navigate('/protected');
 			} else {
 				setErrorMessage(result?.message || 'Sorry, something went wrong.');
