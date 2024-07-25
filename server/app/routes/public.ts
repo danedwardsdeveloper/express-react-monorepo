@@ -14,7 +14,7 @@ publicRouter.get('/', (req, res) => {
 });
 
 
-publicRouter.post('/login', (req, res) => {
+publicRouter.post('/sign-in', (req, res) => {
 	const { email, password } = req.body;
 
 	const user = users.find(
@@ -40,6 +40,21 @@ publicRouter.post('/login', (req, res) => {
 	});
 
 	res.json({ message: 'Login successful', userId: user.id });
+});
+
+publicRouter.get('/validate-token', (req, res) => {
+	const token = req.cookies.token;
+
+	if (!token) {
+		return res.json({ valid: false });
+	}
+
+	try {
+		jwt.verify(token, jwtSecret);
+		res.json({ valid: true });
+	} catch (error) {
+		res.json({ valid: false });
+	}
 });
 
 export default publicRouter;
