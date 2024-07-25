@@ -15,6 +15,8 @@ import SignOut from './app/components/SignOut';
 
 import './index.tailwind.css';
 
+import { AuthProvider } from './app/contexts/AuthContext';
+
 const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<App />}>
@@ -28,6 +30,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')! as HTMLElement).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<AuthProvider>
+			<RouterProvider router={router} />
+		</AuthProvider>
 	</React.StrictMode>
 );
