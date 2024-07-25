@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import {
 	CloseButton,
@@ -7,30 +8,28 @@ import {
 } from '@headlessui/react';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
 
-const signedOutNavigation = [
-	{ name: 'Home', to: '/' },
-	{ name: 'Protected', to: '/protected', disabled: true },
-	{ name: 'Sign in', to: '/sign-in' },
-];
-
-const signedInNavigation = [
-	{ name: 'Home', to: '/' },
-	{ name: 'Protected', to: '/protected', disabled: true },
-	{ name: 'Sign out', to: '/sign-out' },
-];
+import { useAuth } from '../contexts/AuthContext';
 
 function classNames(...classes: string[]): string {
 	return classes.filter(Boolean).join(' ');
 }
 
-interface MenuBarProps {
-	isAuthenticated: boolean;
-}
+export default function MenuBar() {
+	const { isAuthenticated } = useAuth();
+	const [authState, setAuthState] = useState(isAuthenticated);
 
-const MenuBar: React.FC<MenuBarProps> = ({ isAuthenticated }) => {
-	const navigation = isAuthenticated
-		? signedInNavigation
-		: signedOutNavigation;
+	useEffect(() => {
+		setAuthState(isAuthenticated);
+	}, [isAuthenticated]);
+
+	const navigation = [
+		{ name: 'Home', to: '/' },
+		{ name: 'Protected', to: '/protected', disabled: !isAuthenticated },
+		{
+			name: authState ? 'Sign out' : 'Sign in',
+			to: authState ? '/sign-out' : '/sign-in',
+		},
+	];
 
 	return (
 		<Disclosure as="nav" className="bg-gray-800">
@@ -99,7 +98,7 @@ const MenuBar: React.FC<MenuBarProps> = ({ isAuthenticated }) => {
 					transition
 				>
 					<div className="space-y-1 px-2 pb-3 pt-2">
-						{signedOutNavigation.map((item) => (
+						{navigation.map((item) => (
 							<CloseButton
 								key={item.name}
 								as={NavLink}
@@ -121,6 +120,4 @@ const MenuBar: React.FC<MenuBarProps> = ({ isAuthenticated }) => {
 			</div>
 		</Disclosure>
 	);
-};
-
-export default MenuBar;
+}
