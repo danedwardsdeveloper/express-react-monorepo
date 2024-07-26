@@ -1,3 +1,4 @@
+// Server
 import chalk from 'chalk';
 import * as dotenv from 'dotenv';
 dotenv.config();
@@ -11,7 +12,6 @@ function processVariable(variable: string): string {
     return value;
 }
 
-// Server
 function processAllowedOrigins(origins: string, environment: string): string | string[] {
     const value = process.env[origins];
 
@@ -44,6 +44,7 @@ export const port: number = parseInt(processVariable("EXPRESS_PORT"), 10);
 // Arrays
 export const allowedOrigins = processAllowedOrigins("EXPRESS_ALLOWED_ORIGINS", expressEnv);
 
+// Log URLs
 expressEnv === 'development' && console.log(`API available at: ${chalk.blue(`http://localhost:3000/api`)}`);
 expressEnv === 'development' && console.log(`Front-end available at: ${chalk.blue(`http://localhost:5173/`)}`);
 
