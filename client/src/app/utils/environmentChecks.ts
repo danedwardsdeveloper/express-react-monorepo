@@ -10,7 +10,6 @@ function logVariable(variable: string) {
     console.log(`${variable}: ${value}`);
 }
 
-// Strings
 export const reactEnv = setVariable('VITE_REACT_ENV');
 logVariable('VITE_REACT_ENV');
 
