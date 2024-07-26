@@ -61,6 +61,7 @@ export default function MenuBar() {
 							</NavLink>
 						</div>
 						<div className="hidden sm:ml-6 sm:block">
+							{/*Main menu*/}
 							<div className="flex space-x-4">
 								{navigation.map((item) => (
 									<CloseButton
@@ -108,7 +109,10 @@ export default function MenuBar() {
 										isActive
 											? 'bg-gray-900 text-white'
 											: 'text-gray-300 hover:bg-gray-700 hover:text-white',
-										'block rounded-md px-3 py-2 text-base font-medium'
+										'block rounded-md px-3 py-2 text-base font-medium',
+										item.disabled
+											? 'pointer-events-none opacity-50'
+											: ''
 									)
 								}
 							>
