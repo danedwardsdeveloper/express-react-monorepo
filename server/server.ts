@@ -1,5 +1,4 @@
 import express from 'express';
-import chalk from 'chalk';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import * as dotenv from 'dotenv';
@@ -19,13 +18,6 @@ const server = app.listen(port, () => {
 			res.sendFile(path.join(__dirname, '../client/index.html'));
 		});
 	}
-	// Redirect to custom URL in production only
-	// app.use((req, res, next) => {
-	// 	if (req.hostname === 'plant-counter-monorepo.fly.dev') {
-	// 	  return res.redirect(301, 'https://plant-counter.co.uk' + req.url);
-	// 	}
-	// 	next();
-	//   });
 });
 
 export default server;
